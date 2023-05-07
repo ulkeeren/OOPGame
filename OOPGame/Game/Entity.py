@@ -9,15 +9,14 @@ class Entity:
     def __init__(self,x_coor,y_coor,image_path,screen):
         self.x_coor=x_coor
         self.y_coor=y_coor
-        self.image=pygame.transform.scale(pygame.image.load(image_path),(100,90))
+        self.image=pygame.image.load(image_path)
         self.screen=screen
-        self.rect=pygame.Rect((x_coor,y_coor),(100,90))
     def printIt(self):
         self.screen.blit(self.image,(self.x_coor,self.y_coor))
 class Gunslinger(Entity):
     def __init__(self,x_coor,y_coor,image_path,screen):
         super().__init__(x_coor,y_coor,image_path,screen)
-
+        self.image=pygame.transform.scale(self.image,(100,90))
     bullets=[]
     magsize=6
 
@@ -35,15 +34,17 @@ class Gunslinger(Entity):
             self.dy=dy
             self.px=px
             self.py=py
+            self.cpx=px
+            self.cpy=py
             self.screen=screen
             self.image=pygame.transform.scale(pygame.image.load(r"C:\Users\user\source\repos\OOPGame\OOPGame\other\bullet.png"),(10,10))
         def update(self,dt):
-            self.px=(self.dx-self.px)*dt
-            self.py=(self.dy-self.py)*dt
+            self.cpx+=(self.dx-self.px)*dt
+            self.cpy+=(self.dy-self.py)*dt
         def checkCollision(self):
             pass
         def printIt(self):
-            self.screen.blit(self.image,(self.px,self.py))
+            self.screen.blit(self.image,(self.cpx,self.cpy))
      
     def shoot_bullet(self,dx,dy):
         self.bullets.append(self.Bullet(dx,dy,self.x_coor,self.y_coor,self.screen))
