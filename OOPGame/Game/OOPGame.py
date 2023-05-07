@@ -1,5 +1,6 @@
 import pygame
 import random
+from pathlib import Path
 from Entity import *
 zombieTimer=0
 xrandom=random.seed(420)
@@ -12,12 +13,14 @@ clock = pygame.time.Clock()
 time_passed=0
 running = True
 dt = 0
+p=Path("other/gunslinger.png").resolve()
+z=Path("other/zomb.png")
 #initializing the player and appending it to the arrays
-player=Gunslinger(250,250,r"C:\Users\user\source\repos\OOPGame\OOPGame\other\gunslinger.png",screen)
+player=Gunslinger(250,250,p,screen)
 while running:
     zombieTimer+=dt
     if zombieTimer>1.5 and not player.dead:
-        zombies.append(Zombie(random.randint(0,1280),random.randint(0,720),r"C:\Users\user\source\repos\OOPGame\OOPGame\other\zomb.png",screen))
+        zombies.append(Zombie(random.randint(0,1280),random.randint(0,720),z,screen))
         zombieTimer=0
     time_passed+=clock.tick()
     for event in pygame.event.get():

@@ -1,6 +1,6 @@
 from asyncio.windows_events import NULL
 from math import sqrt
-from tkinter.font import NORMAL
+from pathlib import Path
 import pygame
 class Entity:
     screen=NULL
@@ -42,7 +42,7 @@ class Gunslinger(Entity):
             self.cpx=px
             self.cpy=py
             self.screen=screen
-            self.image=pygame.transform.scale(pygame.image.load(r"C:\Users\user\source\repos\OOPGame\OOPGame\other\bullet.png"),(10,10))
+            self.image=pygame.transform.scale(pygame.image.load(Path("other/bullet.png")),(10,10))
         def update(self,dt):
             xwide=(self.dx-self.px)
             ywide=(self.dy-self.py)
