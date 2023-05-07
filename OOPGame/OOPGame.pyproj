@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>890c82e4-e1c4-466a-8c16-84498b15cc05</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Game,\OOPGame.py</StartupFile>
+    <StartupFile>Game\OOPGame.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,11 +21,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game,\Entity.py" />
-    <Compile Include="Game,\OOPGame.py" />
+    <Compile Include="Game\Entity.py" />
+    <Compile Include="Game\OOPGame.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game,\" />
+    <Folder Include="Game\" />
     <Folder Include="other\" />
   </ItemGroup>
   <ItemGroup>
