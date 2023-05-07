@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 #initializing the player and appending it to the arrays
-player=Entity(250,250,r"C:\Users\user\source\repos\OOPGame\OOPGame\other\gunslinger.png",screen)
+player=Gunslinger(250,250,r"C:\Users\user\source\repos\OOPGame\OOPGame\other\gunslinger.png",screen)
 things.append(player)
 
 while running:
@@ -21,17 +21,12 @@ while running:
     screen.fill("black")
     for thing in things:
         thing.printIt()
-    #screen.blit(things[0].image,(player.x_coor , player.y_coor))
-
+    mousePressed=pygame.mouse.get_pressed()
+    mousePos=pygame.mouse.get_pos()
+    if any(mousePressed):
+        player.shoot_bullet(mousePos[0],mousePos[1])
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player.y_coor -= 300 * dt
-    if keys[pygame.K_s]:
-        player.y_coor += 300 * dt
-    if keys[pygame.K_a]:
-        player.x_coor -= 300 * dt
-    if keys[pygame.K_d]:
-        player.x_coor += 300 * dt
+    player.update(keys,dt)
     pygame.display.flip()
     dt = clock.tick(60) / 1000
 
