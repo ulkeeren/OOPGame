@@ -16,7 +16,7 @@ dt = 0
 player=Gunslinger(250,250,r"C:\Users\user\source\repos\OOPGame\OOPGame\other\gunslinger.png",screen)
 while running:
     zombieTimer+=dt
-    if zombieTimer>2:
+    if zombieTimer>1.5 and not player.dead:
         zombies.append(Zombie(random.randint(0,1280),random.randint(0,720),r"C:\Users\user\source\repos\OOPGame\OOPGame\other\zomb.png",screen))
         zombieTimer=0
     time_passed+=clock.tick()
@@ -35,6 +35,7 @@ while running:
     for zombie in zombies:
         player.checkBulletCollision(zombie)
         zombie.update(player.x_coor,player.y_coor,dt)
+        player.checkZombCollision(zombie)
     pygame.display.flip()
     dt = clock.tick(60) / 1000
     time_passed+=dt

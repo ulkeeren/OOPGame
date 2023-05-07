@@ -23,7 +23,8 @@ class Gunslinger(Entity):
         self.image=pygame.transform.scale(self.image,(100,90))
     bullets=[]
     magsize=6
-
+    dead=False
+    re=False
     class Bullet():
         #where bullet is going to move every frame
         dx=NULL
@@ -61,23 +62,32 @@ class Gunslinger(Entity):
     def checkBulletCollision(self,zomb):
         for bullet in self.bullets:
             bullet.checkCollision(zomb)
+    def checkZombCollision(self,zomb):
+        if pygame.Rect((zomb.x_coor,zomb.y_coor),(100,90)).colliderect(pygame.Rect((self.x_coor,self.y_coor),(100,90))) and not zomb.dead:
+            self.dead=True
     def update(self,keys,dt):
-        if keys[pygame.K_w]:
-           self.y_coor -= 300 * dt
-        if keys[pygame.K_s]:
-           self.y_coor += 300 * dt
-        if keys[pygame.K_a]:
-           self.x_coor -= 300 * dt
-        if keys[pygame.K_d]:
-           self.x_coor += 300 * dt
-        for bullet in self.bullets:
-            bullet.printIt()
-            bullet.update(dt)
+        if not self.dead:
+            if keys[pygame.K_w]:
+               self.y_coor -= 300 * dt
+            if keys[pygame.K_s]:
+               self.y_coor += 300 * dt
+            if keys[pygame.K_a]:
+               self.x_coor -= 300 * dt
+            if keys[pygame.K_d]:
+               self.x_coor += 300 * dt
+            for bullet in self.bullets:
+                bullet.printIt()
+                bullet.update(dt)
+        elif self.dead and not self.re:
+            self.image=pygame.transform.rotate(self.image,90)
+            self.re=True
+
 class Zombie(Entity):
     def __init__(self,x_coor,y_coor,image_path,screen):
         super().__init__(x_coor,y_coor,image_path,screen)
         self.image=pygame.transform.scale(self.image,(100,90))
     dead=False
+    re=True
     def update(self,px,py,dt):
         if not self.dead:
             xwide=(self.x_coor-px)
@@ -85,6 +95,7 @@ class Zombie(Entity):
             normalization=sqrt((xwide**2) + (ywide**2))
             self.x_coor-=((self.x_coor-px)/normalization)*300*dt
             self.y_coor-=((self.y_coor-py)/normalization)*300*dt
-        else:
-            pygame.transform.rotate(self.image,90)
+        elif self.dead and self.re:
+            self.image=pygame.transform.rotate(self.image,90)
+            self.re=False
         self.printIt()
